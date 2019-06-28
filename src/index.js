@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner'
 
 class App extends React.Component {
   state = { latitute: null, errorMessage: '' };
@@ -16,8 +17,7 @@ class App extends React.Component {
     console.log('My component was just updated')
   }
 
-  // React says we have to define render!
-  render() {   
+  renderContent(){
     if (this.state.errorMessage && !this.state.latitute)  {
       return (
         <div>Error: {this.state.errorMessage}</div>
@@ -26,9 +26,14 @@ class App extends React.Component {
     if (!this.state.errorMessage && this.state.latitute)  {
       return <SeasonDisplay lat={this.state.latitute} />
     }
-    return (
-      <div>Loading!</div>
-    )
+    return <Spinner message="Please accept location request" />
+  }
+
+  // React says we have to define render!
+  render() {   
+    return(
+      <div className="border red">{this.renderContent()}</div>
+    );
   }
 }
 
